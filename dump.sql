@@ -61,7 +61,6 @@ ALTER SEQUENCE public.appointments_id_seq OWNED BY public.appointments.id;
 CREATE TABLE public.doctors (
     id integer NOT NULL,
     "specialtyId" integer NOT NULL,
-    "createdAt" timestamp without time zone DEFAULT '2023-04-03 06:52:29.109734'::timestamp without time zone NOT NULL,
     "userId" integer NOT NULL,
     "locationId" integer NOT NULL,
     "updateAt" timestamp without time zone NOT NULL
@@ -159,11 +158,12 @@ ALTER SEQUENCE public.patients_id_seq OWNED BY public.patients.id;
 CREATE TABLE public.schedules (
     id integer NOT NULL,
     date date NOT NULL,
-    "time" time without time zone NOT NULL,
     avaiable boolean DEFAULT true NOT NULL,
     "doctorId" integer NOT NULL,
     "createdAt" timestamp without time zone DEFAULT '2023-04-03 06:52:38.85135'::timestamp without time zone NOT NULL,
-    "updateAt" timestamp without time zone NOT NULL
+    "updateAt" timestamp without time zone NOT NULL,
+    timeinitial time without time zone NOT NULL,
+    timeend bigint NOT NULL
 );
 
 

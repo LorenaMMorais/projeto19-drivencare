@@ -2,6 +2,13 @@ import userRepository from "../repositories/userRepository.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidV4 } from "uuid";
 
+async function createUser({email, typeUser}){
+    const { rows: users } = await userRepository.findByEmail({email});
+    const [user] = users;
+
+    await userRepository.createUser({userId: user.id, typeUser: user.typeUser});
+}
+
 async function signup({name, email, password, typeUser}){
     const { rows: users } = await userRepository.findByEmail({email});
     
@@ -11,7 +18,7 @@ async function signup({name, email, password, typeUser}){
 
     await userRepository.signup({name, email, password: hashPassword, typeUser});
 
-    const [user] = users;
+    createUser({email, typeUser});
 }
 
 async function signin({email, password}){
@@ -32,4 +39,4 @@ async function signin({email, password}){
     return token;
 }
 
-export default {signup, signin};
+export default {createUser, signup, signin};

@@ -19,4 +19,11 @@ async function createSession({userId, token}){
     VALUES ($1, $2)`, [userId, token]);
 }
 
-export default {findByEmail, signup, createSession};
+async function createUser({userId, typeUser}){
+    if(typeUser === 'P'){
+        await connectionDb.query(`
+            SELECT * FROM doctors WHERE email = $1`, [userId]);
+    }
+}
+
+export default {findByEmail, signup, createSession, createUser};
