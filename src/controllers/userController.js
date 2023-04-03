@@ -1,9 +1,7 @@
 import userService from "../services/userService.js";
 
 async function signup(req, res){
-    console.log(req.body);
     const {name, email, password, typeUser} = req.body;
-    console.log(name);
 
     try {
         await userService.signup({ name, email, password, typeUser });

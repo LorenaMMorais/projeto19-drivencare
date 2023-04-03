@@ -22,7 +22,10 @@ async function createSession({userId, token}){
 async function createUser({userId, typeUser}){
     if(typeUser === 'P'){
         await connectionDb.query(`
-            SELECT * FROM doctors WHERE email = $1`, [userId]);
+            INSERT INTO patienis ("userId") VALUES ($1)`, [userId]);
+    } else{
+        await connectionDb.query(`
+        INSERT INTO doctors ("userId") VALUES ($1)`, [userId]);
     }
 }
 
