@@ -25,8 +25,18 @@ async function createUser({userId, typeUser}){
             INSERT INTO patienis ("userId") VALUES ($1)`, [userId]);
     } else{
         await connectionDb.query(`
-        INSERT INTO doctors ("userId") VALUES ($1)`, [userId]);
+            INSERT INTO doctors ("userId") VALUES ($1)`, [userId]);
     }
 }
 
-export default {findByEmail, signup, createSession, createUser};
+async function findSessionByToken(token){
+    return await connectionDb.query(`
+    SELECT * FROM sessions WHERE token = $1`, [token]);
+}
+
+async function findById(id){
+    return await connectionDb.query(`
+        SELECT * FROM users WHERE id = $1`, [id]);
+}
+
+export default {findByEmail, signup, createSession, createUser, findSessionByToken, findById};
