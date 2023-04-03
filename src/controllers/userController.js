@@ -14,7 +14,14 @@ async function signup(req, res){
 }
 
 async function signin(){
+    try{
+        const { email, password } = req.body;
+        const token = await userService.signin({email, password});
 
+        return res.status(200).send({token});
+    }catch(error){
+        return res.status(500).send(error.message);
+    }
 }
 
 export default {signup, signin};
